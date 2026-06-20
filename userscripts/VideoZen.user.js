@@ -40,7 +40,8 @@
                 const ts = [Math.floor(t/3600), Math.floor(t%3600/60), Math.floor(t%60)]
                     .map(n => String(n).padStart(2,'0')).join(':');
                 const row = document.createElement('div');
-                row.textContent = `${ts}  ${cue.text.replace(/<[^>]+>/g, '')}`;
+                const cueDoc = new DOMParser().parseFromString(cue.text, 'text/html');
+                row.textContent = `${ts}  ${cueDoc.body.textContent}`;
                 row.style.cssText = 'padding:5px 12px;color:#ccc;font-size:11px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
                 row.onmouseenter = () => row.style.background = 'rgba(255,255,255,0.08)';
                 row.onmouseleave = () => row.style.background = '';
